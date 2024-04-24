@@ -1,0 +1,31 @@
+<form #myForm="ngForm" [formGroup]="dynamicFormGroup" (ngSubmit)="onSubmit()">
+    <ng-container *ngFor="let control of form.formControls">
+        <div *ngIf="['text', 'email', 'password', 'number', 'date'].includes(control.type)">
+            <label for="">{{control.label}}</label>
+            <input formControlName="{{control.name}}" [type]="control.type" [placeholder]="control.placeholder">
+            <small *ngIf="dynamicFormGroup.get(control.name)?.invalid && (dynamicFormGroup.get(control.name)?.touched || myForm.submitted)">{{getValidationErrors(control)}}</small>
+        </div>
+        <div *ngIf="control.type === 'select'">
+            <label for="">{{control.label}}</label>
+            <select formControlName="{{control.name}}" id="">
+                <option selected>Open the select menu</option>
+                <ng-container *ngFor="let opt of control.options">
+                    <option [value]="opt.value">{{opt.value}}</option>
+                </ng-container>
+            </select>
+            <small *ngIf="dynamicFormGroup.get(control.name)?.invalid && (dynamicFormGroup.get(control.name)?.touched || myForm.submitted)">{{getValidationErrors(control)}}</small>
+        </div>
+        <div *ngIf="control.type === 'radio'">
+            <label for="">{{control?.label}}</label>
+            <ng-container *ngFor="let row of control.radioOptions">
+                <input formControlName="{{control.name}}" [value]="row" type="radio" [placeholder]="control.placeholder">
+                <label [for]="control.name">{{row}}</label>
+            </ng-container>
+            <small *ngIf="dynamicFormGroup.get(control.name)?.invalid && (dynamicFormGroup.get(control.name)?.touched || myForm.submitted)">{{getValidationErrors(control)}}</small>
+        </div>
+    </ng-container>
+    <div>
+        <button type="submit">{{form.saveBtnTitle}}</button>
+        <button (click)="resetForm()" type="button">{{form.resetBtnTitle}}</button>
+    </div>
+</form>
