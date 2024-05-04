@@ -1,6 +1,7 @@
 export interface IForm{
     formTitle: string,
     saveBtnTitle: string,
+    submitButtonLink: string,
     resetBtnTitle: string,
     formControls: IFormControl[]
 }

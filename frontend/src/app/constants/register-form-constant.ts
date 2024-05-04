@@ -3,6 +3,7 @@ import { IForm } from "../interfaces/form-interface";
 export const registerFormConfig: IForm = {
     formTitle: 'Registration Form',
     saveBtnTitle: 'Register',
+    submitButtonLink: '/login',
     resetBtnTitle: 'Reset',
     formControls: [{
         "name": "firstName",

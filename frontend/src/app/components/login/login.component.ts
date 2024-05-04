@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IForm } from '../../interfaces/form-interface';
 import { loginFormConfig } from '../../constants/login-form-constant';
 import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
-import { UserService } from '../../services/user/user.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +13,15 @@ import { UserService } from '../../services/user/user.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private userService: UserService){}
+  constructor(private authService: AuthService, private router: Router){}
 
   loginForm: IForm = loginFormConfig;
 
   login(event: SubmitEvent){
-    this.userService.authenticate(event).subscribe(r => {
+    this.authService.authenticate(event).subscribe(r => {
       localStorage.setItem("token", r.token);
+      localStorage.setItem("user", r.user.role);
+      this.router.navigate(['/home-page']);
     })
   }
 }

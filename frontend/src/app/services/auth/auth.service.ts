@@ -6,16 +6,16 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  
+export class AuthService {
+
   private baseUrl: string = baseUrl;
 
   constructor(private http: HttpClient) { }
 
-  findAll(): Observable<any[]>{
-    return this.http.get<any[]>(`${this.baseUrl}/user`);
+  register(data: any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/api/auth/register`, data);
   }
-  findById(id: number): Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}/user/${id}`);
+  authenticate(data: any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/api/auth/authenticate`, data);
   }
 }

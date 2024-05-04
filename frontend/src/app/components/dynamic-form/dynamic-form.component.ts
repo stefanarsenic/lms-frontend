@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { IForm, IFormControl, IValidator } from '../../interfaces/form-interface';
-import { onUpdated } from 'vue';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dynamic-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.css'
 })
@@ -17,7 +17,7 @@ export class DynamicFormComponent {
 
   @Output() submitEvent: EventEmitter<SubmitEvent> = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder){}
+  constructor(private formBuilder: FormBuilder, private router: Router){}
 
   ngOnInit(): void{
     if(this.form?.formControls){
